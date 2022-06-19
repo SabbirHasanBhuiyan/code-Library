@@ -1,0 +1,25 @@
+//https://leetcode.com/problems/longest-common-subsequence/submissions/
+
+class Solution {
+    string s1,s2;
+    int l1,l2,dp[1000][1000];
+    int solve(int i,int j){
+        if(i==l1 || j==l2)  return 0;
+        if(dp[i][j]!=-1)    return dp[i][j];
+        int ret=0;
+        if(s1[i]==s2[j])    ret=1+solve(i+1,j+1);
+        else{
+            ret=solve(i+1,j);
+            ret=max(ret,solve(i,j+1));
+        }
+        return dp[i][j]=ret;
+    }
+    
+public:
+    int longestCommonSubsequence(string text1, string text2) {
+        s1=text1,s2=text2;
+        l1=s1.size(),l2=s2.size();
+        memset(dp,-1,sizeof dp);
+        return solve(0,0);
+    }
+};
