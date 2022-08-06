@@ -1,5 +1,9 @@
 //Bismillah
 
+/*
+https://lightoj.com/problem/investigation
+*/
+
 #include<bits/stdc++.h>
 using namespace std;
 
