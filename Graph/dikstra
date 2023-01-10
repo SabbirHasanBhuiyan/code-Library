@@ -1,0 +1,64 @@
+///   ***   ---   |||		 In the name of ALLAH		|||   ---   ***   ///
+
+/*
+https://cses.fi/problemset/task/1671/
+*/
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+
+typedef long long ll;
+const ll infLL = 9e18;
+
+const int mx = 1e5+123;
+vector<pair<int,int > > adj[mx];
+ll dist[mx];
+
+void dijkstra ( int s, int n )
+{
+    for ( int i = 0; i <= n; i++ ) dist[i] = infLL; /// initilization
+    dist[s] = 0; /// initilizing source distance
+    priority_queue < pair<ll,ll> , vector<pair<ll,ll>>, greater<pair<ll,ll>> > pq; /// has been defined as long long above
+    pq.push ( { 0, s } ); /// pushing source in queue
+
+    while ( !pq.empty() ) {
+        int u = pq.top().second; /// u = 4
+        ll curD = pq.top().first; // curD = 3
+        pq.pop();
+
+        if ( dist[u] < curD ) continue; // important
+
+        for ( auto p : adj[u] ) {
+            int v = p.first;
+            ll w = p.second;
+            if ( curD + w < dist[v] ) { // relax operation
+                dist[v] = curD + w;
+                pq.push ( { dist[v], v } );
+            }
+        }
+    }
+
+}
+
+int main()
+{
+
+    int n, m;
+    cin >> n >> m;
+    for ( int i = 1; i <= m; i++ ) {
+        int u, v, w;
+        cin >> u >> v >> w;
+        adj[u].push_back ( { v, w } );
+        //adj[v].PB ( { u, w } );
+    }
+
+    dijkstra ( 1, n );
+
+    for ( int i = 1; i <= n; i++ ) cout << dist[i] << " ";
+    cout << endl;
+
+	return 0;
+}
+
