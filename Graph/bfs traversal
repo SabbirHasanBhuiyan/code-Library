@@ -20,7 +20,7 @@ void bfs ( int s ,int n)
 {
     for(int i=1;i<=n;i++)   vis[i]=1;
     for(int i=1;i<=n;i++)   dist[i]=inf; //inf has been declared as 2e9 above
-    for(int i=1;i<=n;i++)   par[i]=i;
+    for(int i=1;i<=n;i++)   par[i]=0;
 
     vis[s]=2;
     dist[s]=0;
