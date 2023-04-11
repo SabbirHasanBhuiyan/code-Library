@@ -1,0 +1,16 @@
+https://www.codechef.com/problems/KMAXMIN
+
+https://www.codechef.com/JUNE16/problems/CHSQARR/
+
+https://codeforces.com/contest/15/problem/D
+check for memory complexity O(n*m)
+hints: ........ size of rectangle for query is same always
+
+https://www.codechef.com/LTIME97B/problems/TICTACTO
+check for memory complexity O(n*m)
+hints: ........ size of rectangle for query is same always
+try for sq type of soln also 
+hints: ........ here query rectangles are always sqare 
+
+
+****problems from cp-algorithm
