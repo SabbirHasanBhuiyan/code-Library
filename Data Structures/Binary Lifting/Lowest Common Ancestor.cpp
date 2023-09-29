@@ -1,8 +1,8 @@
-/*
-https://atcoder.jp/contests/dp/tasks/dp_a
-*/
 //Bismillah
-
+/*
+https://www.spoj.com/problems/LCASQ/
+https://www.youtube.com/watch?v=dOAxrhAUIhA&t=19s
+*/
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -125,27 +125,77 @@ void faltu( T arg, const hello &... rest) {
                 faltu(rest...);
 }
 
-const int mx=1e5+1;
-ll h[mx],dp[mx];
-int n;
-ll solve(int i)
+const int mx=10000;
+vi adj[mx];
+const int LOG=log2(mx)+1;
+int up[mx][LOG]; // up[v][j] is 2^j-th ancestor of v
+int depth[mx];
+void dfs(int u)
 {
-    if(i==n)    return 0;
-    ll ret1=infLL,ret2=infLL;
-    if(dp[i]!=-1)   return dp[i];
-    ret1=abs(h[i]-h[i+1])+solve(i+1);
-    if((i+2)<=n)    ret2=abs(h[i]-h[i+2])+solve(i+2);
-    return dp[i]=min(ret1,ret2);
+    for(auto &v: adj[u]){
+        depth[v]=depth[u]+1;
+        up[v][0]=u; // u is the parent of v
+        for(int j=1;j<LOG;j++){
+            up[v][j]=up[up[v][j-1]][j-1];
+        }
+        dfs(v);
+    }
 }
 
+int get_lca(int u,int v){
+    if(depth[u]<depth[v])   swap(u,v);
+
+    if(depth[u]!=depth[v]){ ///get same depth
+        int k=depth[u]-depth[v];
+        for(int j=LOG-1;j>=0;j--){
+            if(k&(1<<j)){
+                u=up[u][j];
+            }
+        }
+    }
+
+    if(u==v){ //if v was the ancestor of a then a==b
+        return u;
+    }
+
+    for(int j=LOG-1;j>=0;j--){
+        if(up[u][j]!=up[v][j]){
+            u=up[u][j];
+            v=up[v][j];
+        }
+
+
+    }
+
+    return up[u][0];
+}
 int main()
 {
     optimize();
 
+    int n,m,c;
     cin>>n;
-    for(int i=1;i<=n;i++)   cin>>h[i];
-    for(int i=1;i<=n;i++)   dp[i]=-1;
+    for(int i=0;i<n;i++){
+        cin>>m;
+        while(m--){
+            cin>>c;
+            adj[i].PB(c);
+        }
+    }
 
-    cout<<solve(1)<<endl;
+    dfs(0);
+
+    int q,u,v;
+    cin>>q;
+    while(q--){
+        cin>>u>>v;
+        int lca=get_lca(u,v)<<endl;
+
+        int ans=depth[u]+depth[v]-2*depth[lca];
+        cout<<ans<<endl;
+    }
+
+
     return 0;
 }
+
