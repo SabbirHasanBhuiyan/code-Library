@@ -1,4 +1,4 @@
-
+// O(n)
 void manacher(string &st)
 {
     string s;
