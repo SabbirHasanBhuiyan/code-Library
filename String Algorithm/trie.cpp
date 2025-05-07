@@ -1,3 +1,8 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+const int N = 3e5 + 9;
+
 struct Trie {
   static const int B = 31;//nofbits in number..
   struct node {
@@ -59,3 +64,21 @@ struct Trie {
     delete(cur);
   }
 } t;
+int32_t main() {
+  ios_base::sync_with_stdio(0);
+  cin.tie(0);
+  int n, k;
+  cin >> n >> k;
+  int cur = 0;
+  long long ans = 1LL * n * (n + 1) / 2;
+  t.insert(cur);
+  for (int i = 0; i < n; i++) {
+    int x;
+    cin >> x;
+    cur ^= x;
+    ans -= t.query(cur, k);
+    t.insert(cur);
+  }
+  cout << ans << '\n';
+  return 0;
+}
