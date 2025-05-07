@@ -1,10 +1,5 @@
-#include<bits/stdc++.h>
-using namespace std;
-
-const int N = 3e5 + 9;
-
 struct Trie {
-  static const int B = 31;
+  static const int B = 31;//nofbits in number..
   struct node {
     node* nxt[2];
     int sz;
@@ -44,8 +39,8 @@ struct Trie {
     int ans = 0;
     for (int i = B - 1; i >= 0; i--) {
       int k = x >> i & 1;
-      if (cur -> nxt[!k]) cur = cur -> nxt[!k], ans <<= 1, ans++;
-      else cur = cur -> nxt[k], ans <<= 1;
+      if (cur -> nxt[!k]) cur = cur -> nxt[!k], ans |= (1LL<<i);
+      else cur = cur -> nxt[k];
     }
     return ans;
   }
@@ -54,8 +49,8 @@ struct Trie {
     int ans = 0;
     for (int i = B - 1; i >= 0; i--) {
       int k = x >> i & 1;
-      if (cur -> nxt[k]) cur = cur -> nxt[k], ans <<= 1;
-      else cur = cur -> nxt[!k], ans <<= 1, ans++;
+      if (cur -> nxt[k]) cur = cur -> nxt[k];
+      else cur = cur -> nxt[!k], ans |= (1LL<<i);
     }
     return ans;
   }
@@ -64,21 +59,3 @@ struct Trie {
     delete(cur);
   }
 } t;
-int32_t main() {
-  ios_base::sync_with_stdio(0);
-  cin.tie(0);
-  int n, k;
-  cin >> n >> k;
-  int cur = 0;
-  long long ans = 1LL * n * (n + 1) / 2;
-  t.insert(cur);
-  for (int i = 0; i < n; i++) {
-    int x;
-    cin >> x;
-    cur ^= x;
-    ans -= t.query(cur, k);
-    t.insert(cur);
-  }
-  cout << ans << '\n';
-  return 0;
-}
