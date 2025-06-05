@@ -1,0 +1,80 @@
+///   ***   ---   |||        In the name of ALLAH       |||   ---   ***   ///
+//Bellman–Ford - Single source shortest path with negative edges & negative cycle finding
+//To detect any negative cycle  (not just from a source), set all d[i] = 0 and run Bellman-Ford:;validity to detect remains unaffected.
+//Time Complexity: O(nm)
+/*
+https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=499
+*/
+
+#include<bits/stdc++.h>
+using namespace std;
+
+#define int long long 
+typedef long long ll;
+
+#define PB push_back
+const ll infLL = 4e18;
+
+#define optimize() ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+
+const int N=1e5+1;
+int dist[N],par[N];
+vector<vector<int>>edges;
+void bellmanFord(int s,int n)
+{
+    for ( int i = 1; i <= n; i++ ) dist[i] = infLL;
+    dist[s] = 0;
+    for(int i=1;i<=n;i++) par[i]=-1;
+    int x,u,v,w;
+    for (int i=1;i<=n;i++) {
+        x = -1;
+        for (auto &e : edges){
+            u=e[0],v=e[1],w=e[2];
+            if (dist[u]<infLL)//Avoids unwanted relaxations by -ve edge
+                if (dist[v] > dist[u] +w) {
+                    dist[v] = max(-infLL, dist[u] + w);
+                    par[v] = u;
+                    x = v;
+                }
+        }
+    }
+    if (x == -1)
+        cout<<"not possible"<<endl;
+    else {
+        int y = x;//x is the last node to be relaxed
+        //nth predecessors is guaranteed to be in -ve cycle
+        for (int i=1;i<=n;++i)  y = par[y];
+        vector<int> path;
+        for (int cur = y;; cur = par[cur]) {
+            path.push_back(cur);
+            if (cur == y && path.size() > 1)
+                break;
+        }
+        reverse(path.begin(), path.end());
+
+        cout << "Negative cycle: ";
+        for (int u : path)
+            cout << u << ' ';
+        cout<<endl;
+    }
+}
+signed main()
+{
+    optimize();
+
+    int t,n,m,u,v,w;
+    cin>>t;
+    while(t--){
+        cin>>n>>m;
+        edges.clear();
+        for(int i=1;i<=m;i++){
+            cin>>u>>v>>w;
+            u++,v++;
+            edges.PB({u,v,w});
+        }
+        bellmanFord(1,n);
+    }
+
+    return 0;
+}
+
