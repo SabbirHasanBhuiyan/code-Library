@@ -1,4 +1,8 @@
 //Finding A cycle In Order(M)
+//We will run a series of DFS in the graph. Initially all vertices are colored white (0). From each unvisited (white) vertex, start the DFS, mark it gray (1) while entering and mark
+//it black (2) on exit. If DFS moves to a gray vertex, then we have found a cycle (if the graph is undirected, the edge to parent is not considered). The cycle itself can be
+//reconstructed using parent array.
+
 //This code is for undirected graph; for directed graph par in dfs(u,par) must be avoided.
 //Need to call find_cycle(n): n is the total number of nodes.
 //Bismillah
