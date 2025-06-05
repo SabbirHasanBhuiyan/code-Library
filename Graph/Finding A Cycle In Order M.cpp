@@ -15,16 +15,9 @@ typedef long long ll;
 #define endl '\n'
 #define all(a) (a).begin(),(a).end()
 #define sz(x) (int)x.size()
-#define mx_int_prime 999999937
 
-const double PI = acos(-1);
-const double eps = 1e-9;
-const int inf = 1e9+100;
-const ll infLL = 4e18;
-#define MOD 1000000007
 
 #define optimize() ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-#define file() freopen("input.txt","r",stdin);freopen("output.txt","w",stdout);
 
 const int N=1e5+1;
 vector<int>adj[N];
@@ -74,7 +67,8 @@ void find_cycle(int n){
 }
 signed main()
 {
-    file();
+    optimize();
+    
     int n,m,u,v;
     cin>>n>>m;
     for(int i=1;i<=m;i++){
