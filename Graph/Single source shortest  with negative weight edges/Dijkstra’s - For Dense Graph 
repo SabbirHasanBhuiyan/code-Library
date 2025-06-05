@@ -1,0 +1,29 @@
+//the graph should not have any edge with negative weight 
+//for Dense graph E nearly equals to V^2
+//O(V^2 + E)
+const int N=1e5+1;
+vector<pair<int,int> > adj[N];
+int dist[N],parent[N];
+void disjktra(int s,int n)
+{
+    for(int i=1;i<=n;i++) dist[i]=infLL,parent[i]=-1;
+    vector<bool>vis(n+1,false);
+    dist[s]=0;
+    for(int i=1;i<=n;i++){
+        int u=-1;
+        for(int j=1;j<=n;j++){
+            if(!vis[j] and (u==-1 || dist[j]<dist[u])) u=j;
+        }
+        if(dist[u]==infLL) break;
+        vis[u]=true;
+        for(auto &e: adj[u]){
+            int v=e.F;
+            int w=e.S;
+            if((dist[u]+w)<dist[v]){
+                dist[v]=dist[u]+w;
+                parent[v]=u;
+            }
+
+        }
+    }
+}
