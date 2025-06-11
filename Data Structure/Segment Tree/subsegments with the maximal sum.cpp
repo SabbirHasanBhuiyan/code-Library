@@ -1,4 +1,5 @@
 //https://www.spoj.com/problems/GSS3/
+//https://codeforces.com/contest/2117/problem/H big one... needs integaration of ofline query
 //if empty substring is allowed then answer will max(0,query())
 #include<bits/stdc++.h>
 using namespace std;
