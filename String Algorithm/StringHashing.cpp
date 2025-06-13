@@ -27,7 +27,7 @@ int bigMOD(int a,int n,int mod)
     return ans;
 }
 const int N=1e6+1;
-const int MOD1=1e9+7,MOD2=1e9+9;
+const int MOD1=1032344959,MOD2=1017280871;
 const int base1=137,base2=277;
 int ip1,ip2;
 pair<int,int> pw[N],ipw[N];
